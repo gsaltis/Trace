@@ -1,12 +1,12 @@
-CC					= gcc
-LINK					= gcc
+CC					= g++
+LINK					= g++
 
 CC_FLAGS				= -c -g -Wall
 LINK_FLAGS				= -g
 LIB_FLAGS				= 
 
 TARGET					= client.exe
-LIBS					=
+LIBS					= -lwsock32
 OBJS					= $(sort				\
 					    main.o                              \
 					   )

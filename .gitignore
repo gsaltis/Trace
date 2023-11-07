@@ -1,0 +1,7 @@
+Server/Makefile*
+Server/release
+Server/debug
+*.o
+*.exe
+*~
+Server/.qmake*
