@@ -36,6 +36,10 @@ void
 f1
 ();
 
+void
+f2
+();
+
 /*****************************************************************************!
  * Function : main
  *****************************************************************************/
@@ -47,6 +51,7 @@ main(int argc, char**argv)
   const char*                           s = "String";
   
   TRACE_FUNCTION_START();
+  f2();
   TRACE_FUNCTION_LOCATION();
   TRACE_FUNCTION_BOOL(b);
   TRACE_FUNCTION_INT(a);
@@ -64,7 +69,25 @@ void
 f1
 ()
 {
+  int                                   k = 234;
+  
   TRACE_FUNCTION_START();
   TRACE_FUNCTION_LOCATION();
+  f2();
+  TRACE_FUNCTION_INT(k);
+  TRACE_FUNCTION_END();
+}
+
+/*****************************************************************************!
+ * Function : f2()
+ *****************************************************************************/
+void
+f2
+()
+{
+  int                                   n = 3;
+  TRACE_FUNCTION_START();
+  TRACE_FUNCTION_LOCATION();
+  TRACE_FUNCTION_INT(n);
   TRACE_FUNCTION_END();
 }

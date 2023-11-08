@@ -67,18 +67,22 @@ class MainDisplayWindowControlBar : public QWidget
  private :
   QColor                        backgroundColor;
   QPushButton*                  ClearButton;
+  QPushButton*                  SaveButton;
 
  //! Public Slots
  public slots :
   void                          SlotClearButtonPushed   (void);
+  void                          SlotSaveButtonPushed    (void);
 
  //! Public Signals
  signals :
   void                          SignalClearDisplay      (void);
+  void                          SignalSaveData          (void);
 
  //! Public Actions
  public :
   QAction*                      ActionClearButtonPushed;
+  QAction*                      ActionSaveButtonPushed;
 
 };
 

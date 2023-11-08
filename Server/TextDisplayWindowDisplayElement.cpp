@@ -24,16 +24,17 @@
 #define TYPE_LABEL_WIDTH                140
 #define LINENUMBER_LABEL_WIDTH          40
 #define FILENAME_LABEL_WIDTH            300
+#define FUNCTIONNAME_LABEL_WIDTH        300
 
 /*****************************************************************************!
  * Function : TextDisplayWindowDisplayElement
  *****************************************************************************/
 TextDisplayWindowDisplayElement::TextDisplayWindowDisplayElement
-(QString InString, QDateTime InDateTime, QWidget* InParent) : QWidget(InParent)
+(QString InString, QDateTime InDateTime, QColor InColor, QWidget* InParent) : QWidget(InParent)
 {
   QPalette pal;
   pal = palette();
-  color = QColor(240, 240, 240);
+  color = InColor;
   pal.setBrush(QPalette::Window, QBrush(color));
   setPalette(pal);
   setAutoFillBackground(true);
@@ -94,13 +95,21 @@ TextDisplayWindowDisplayElement::CreateSubWindows()
   TypeLabel->setAlignment(Qt::AlignLeft);
   TypeLabel->setFont(QFont("Courier", 10, QFont::Normal));
   
-  FilenameLabel = new QLabel();
-  FilenameLabel->setParent(this);
-  FilenameLabel->move(0, 0);
-  FilenameLabel->resize(0, 0);
-  FilenameLabel->setText("");
-  FilenameLabel->setAlignment(Qt::AlignRight);
-  FilenameLabel->setFont(QFont("Segoe UI", 10, QFont::Normal));
+  FileNameLabel = new QLabel();
+  FileNameLabel->setParent(this);
+  FileNameLabel->move(0, 0);
+  FileNameLabel->resize(0, 0);
+  FileNameLabel->setText("");
+  FileNameLabel->setAlignment(Qt::AlignRight);
+  FileNameLabel->setFont(QFont("Segoe UI", 10, QFont::Normal));
+  
+  FunctionNameLabel = new QLabel();
+  FunctionNameLabel->setParent(this);
+  FunctionNameLabel->move(0, 0);
+  FunctionNameLabel->resize(0, 0);
+  FunctionNameLabel->setText("");
+  FunctionNameLabel->setAlignment(Qt::AlignRight);
+  FunctionNameLabel->setFont(QFont("Segoe UI", 10, QFont::Normal));
   
   LineNumberLabel = new QLabel();
   LineNumberLabel->setParent(this);
@@ -159,11 +168,17 @@ TextDisplayWindowDisplayElement::resizeEvent
   int                                   ValueLabelW;
   int                                   ValueLabelH;
 
-  int                                   FilenameLabelX;
-  int                                   FilenameLabelY;
-  int                                   FilenameLabelW;
-  int                                   FilenameLabelH;
+  int                                   FileNameLabelX;
+  int                                   FileNameLabelY;
+  int                                   FileNameLabelW;
+  int                                   FileNameLabelH;
 
+  int                                   FunctionNameLabelX;
+  int                                   FunctionNameLabelY;
+  int                                   FunctionNameLabelW;
+  int                                   FunctionNameLabelH;
+
+  //!
   size = InEvent->size();
   width = size.width();
   height = size.height();
@@ -173,17 +188,23 @@ TextDisplayWindowDisplayElement::resizeEvent
   DateTimeLabelW = DATE_TIME_WIDTH;
   DateTimeLabelH = height  - 2;
 
+  //!
   TypeLabelX            = DateTimeLabelW + DateTimeLabelX + 5;
   TypeLabelY            = 0;
   TypeLabelW            = TYPE_LABEL_WIDTH;
   TypeLabelH            = height;;
 
-  FilenameLabelX        = TypeLabelX + TypeLabelW + 5;
-  FilenameLabelY        = 1;
-  FilenameLabelW        = FILENAME_LABEL_WIDTH;
-  FilenameLabelH        = height - 2;
+  FileNameLabelX        = TypeLabelX + TypeLabelW + 5;
+  FileNameLabelY        = 1;
+  FileNameLabelW        = FILENAME_LABEL_WIDTH;
+  FileNameLabelH        = height - 2;
+
+  FunctionNameLabelX    = FileNameLabelX + FileNameLabelW + 5;
+  FunctionNameLabelY    = 1;
+  FunctionNameLabelW    = FUNCTIONNAME_LABEL_WIDTH;
+  FunctionNameLabelH    = height - 2;
   
-  LineNumberLabelX      = FilenameLabelX + FilenameLabelW + 5;
+  LineNumberLabelX      = FunctionNameLabelX + FunctionNameLabelW + 5;
   LineNumberLabelY      = 1;
   LineNumberLabelW      = LINENUMBER_LABEL_WIDTH;
   LineNumberLabelH      = height - 2;
@@ -193,15 +214,18 @@ TextDisplayWindowDisplayElement::resizeEvent
   ValueLabelW           = width - ValueLabelX;
   ValueLabelH           = height - 2;
 
-  
+  //!
   DateTimeLabel->move(DateTimeLabelX, DateTimeLabelY);
   DateTimeLabel->resize(DateTimeLabelW, DateTimeLabelH);
 
   TypeLabel->move(TypeLabelX, TypeLabelY);
   TypeLabel->resize(TypeLabelW, TypeLabelH);
 
-  FilenameLabel->move(FilenameLabelX, FilenameLabelY);
-  FilenameLabel->resize(FilenameLabelW, FilenameLabelH);
+  FileNameLabel->move(FileNameLabelX, FileNameLabelY);
+  FileNameLabel->resize(FileNameLabelW, FileNameLabelH);
+
+  FunctionNameLabel->move(FunctionNameLabelX, FunctionNameLabelY);
+  FunctionNameLabel->resize(FunctionNameLabelW, FunctionNameLabelH);
 
   LineNumberLabel->move(LineNumberLabelX, LineNumberLabelY);
   LineNumberLabel->resize(LineNumberLabelW, LineNumberLabelH);
@@ -253,6 +277,14 @@ TextDisplayWindowDisplayElement::ParseText
   fileName = text.sliced(start, m);
   start = ++end;
 
+  //!  Get function name
+  for ( end = start ; text[end] != QChar(':') ; end++)
+  {}
+
+  m = end - start;
+  functionName = text.sliced(start, m);
+  start = ++end;
+
   //!  Get line number
   for ( end = start ; end < n && text[end] != QChar(':') ; end++)
   {}
@@ -273,7 +305,8 @@ TextDisplayWindowDisplayElement::ParseText
   }
 
   TypeLabel->AddText(type, indentLength);
-  FilenameLabel->setText(fileName);
+  FileNameLabel->setText(fileName);
+  FunctionNameLabel->setText(functionName);
   LineNumberLabel->setText(QString("%1").arg(lineNumber));
   ValueLabel->setText(value);
 }

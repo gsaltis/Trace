@@ -16,8 +16,10 @@ QMAKE_CXXFLAGS                  +=
 QMAKE_LIBS                      = 
 
 TARGET                          = TraceServer
+RESOURCES                       += TraceServer.qrc
 
-VERSION                         = "0.0.0"
+VERSION                         = "0.9.0"
+
 QMAKE_TARGET_COMPANY            = "Vertiv Company"
 
 QMAKE_TARGET_PRODUCT            = "TraceServer"

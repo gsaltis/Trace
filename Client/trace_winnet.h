@@ -67,7 +67,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
     TraceIndent++;                                                                                  \
-    sprintf(TraceOutputBuffer, "%02d:ENTER:%s:%04d \n", TraceIndent, __FUNCTION__, __LINE__);       \
+    sprintf(TraceOutputBuffer, "%02d:ENTER:%s:%s:%04d \n",                                          \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__);                                         \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }                                                                                                 \
@@ -76,7 +77,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_END()                                                                        \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:EXIT:%s:%04d \n", TraceIndent, __FUNCTION__, __LINE__);        \
+    sprintf(TraceOutputBuffer, "%02d:EXIT:%s:%s:%04d \n",                                           \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__);                                         \
     TRACE_FUNCTION_SEND()                                                                           \
     TraceIndent--;                                                                                  \
     TRACE_FUNCTION_FINISH()                                                                         \
@@ -86,7 +88,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_LOCATION()                                                                   \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:LOCATION:%s:%04d \n", TraceIndent, __FUNCTION__, __LINE__);    \
+    sprintf(TraceOutputBuffer, "%02d:LOCATION:%s:%s:%04d \n",                                       \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__);                                         \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }                                                                                                 \
@@ -95,8 +98,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_BOOL(n)                                                                      \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:BOOL:%s:%04d:%s = %s \n",                                      \
-            TraceIndent, __FUNCTION__, __LINE__, #n, n ? "TRUE" : "FALSE");                         \
+    sprintf(TraceOutputBuffer, "%02d:BOOL:%s:%s:%04d:%s = %s \n",                                   \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__, #n, n ? "TRUE" : "FALSE");               \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }                                                                                                 \
@@ -105,8 +108,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_INT(n)                                                                       \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:INT:%s:%04d:%s = %d \n",                                       \
-            TraceIndent, __FUNCTION__, __LINE__, #n, n);                                            \
+    sprintf(TraceOutputBuffer, "%02d:INT:%s:%s:%04d:%s = %d \n",                                    \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__, #n, n);                                  \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }
@@ -115,8 +118,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_HEX(n)                                                                       \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:INT:%s:%04d:%s = 0x%08X \n",                                   \
-            TraceIndent, __FUNCTION__, __LINE__, #n, (int)n);                                       \
+    sprintf(TraceOutputBuffer, "%02d:INT:%s:%s:%04d:%s = 0x%08X \n",                                \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__, #n, (int)n);                             \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }
@@ -125,8 +128,8 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 #define TRACE_FUNCTION_STRING(n)                                                                    \
   {                                                                                                 \
     TRACE_FUNCTION_INIT()                                                                           \
-    sprintf(TraceOutputBuffer, "%02d:STRING:%s:%04d:%s = \"%s\" \n",                                \
-            TraceIndent, __FUNCTION__, __LINE__, #n, n);                                            \
+    sprintf(TraceOutputBuffer, "%02d:STRING:%s:%s:%04d:%s = \"%s\" \n",                             \
+            TraceIndent, __FILE__, __FUNCTION__, __LINE__, #n, n);                                  \
     TRACE_FUNCTION_SEND()                                                                           \
     TRACE_FUNCTION_FINISH()                                                                         \
   }                                                                                                 \

@@ -99,11 +99,18 @@ void
 TextDisplayWindowDisplayArea::SlotAddText
 (QString InString)
 {
+  int                                   n;
+  QColor                                color;
+  
   TextDisplayWindowDisplayElement*      element;
-  element = new TextDisplayWindowDisplayElement(InString, QDateTime::currentDateTime(), this);
+  n = elements.size();
+  color = QColor(255, 255, 255);
+  if ( n % 2 == 0 ) {
+    color = QColor(224, 224, 224);
+  }
+  element = new TextDisplayWindowDisplayElement(InString, QDateTime::currentDateTime(), color, this);
   element->show();
   AddElement(element);
-  
 }
 
 /*****************************************************************************!

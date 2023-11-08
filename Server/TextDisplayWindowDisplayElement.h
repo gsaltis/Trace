@@ -37,7 +37,8 @@ class TextDisplayWindowDisplayElement : public QWidget
 
  //! Constructors
  public :
-  TextDisplayWindowDisplayElement (QString InString, QDateTime InDateTime, QWidget* InParent);
+  TextDisplayWindowDisplayElement (QString InString, QDateTime InDateTime,
+                                   QColor InColor, QWidget* InParent);
 
  //! Destructor
  public :
@@ -71,7 +72,8 @@ class TextDisplayWindowDisplayElement : public QWidget
   QLabel*                       TextLabel;
   QLabel*                       DateTimeLabel;
   ElementTypeLabel*             TypeLabel;
-  QLabel*                       FilenameLabel;
+  QLabel*                       FileNameLabel;
+  QLabel*                       FunctionNameLabel;
   QLabel*                       LineNumberLabel;
   QLabel*                       ValueLabel;
 
@@ -79,6 +81,7 @@ class TextDisplayWindowDisplayElement : public QWidget
   int                           lineNumber;
   QString                       type;
   QString                       fileName;
+  QString                       functionName;
   QString                       value;
   
  //! Public Slots

@@ -55,6 +55,8 @@ MainDisplayWindowControlBar::initialize()
   CreateSubWindows();
   ActionClearButtonPushed = new QAction("ClearButtonPushed", this);
   connect(ActionClearButtonPushed, SIGNAL(triggered()), this, SLOT(SlotClearButtonPushed()));
+  ActionSaveButtonPushed = new QAction("SaveButtonPushed", this);
+  connect(ActionSaveButtonPushed, SIGNAL(triggered()), this, SLOT(SlotSaveButtonPushed()));
 }
 
 /*****************************************************************************!
@@ -64,12 +66,12 @@ void
 MainDisplayWindowControlBar::CreateSubWindows()
 {
   //! Create the ClearButton button  
-  ClearButton = new QPushButton();
-  ClearButton->setParent(this);
-  ClearButton->setText("Clear");
-  ClearButton->move(0, 0);
-  ClearButton->resize(0, 0);
+  ClearButton = new QPushButton(QIcon(":/Images/Delete.png"), "Clear", this);
   connect(ClearButton, SIGNAL(pressed()), this, SLOT(SlotClearButtonPushed()));
+
+  //! Create the SaveButton button
+  SaveButton = new QPushButton(QIcon(":/Images/SaveData.png"), "Save", this);
+  connect(SaveButton, SIGNAL(pressed()), this, SLOT(SlotSaveButtonPushed()));
 }
 
 /*****************************************************************************!
@@ -94,17 +96,30 @@ MainDisplayWindowControlBar::resizeEvent
   int                                   ClearButtonY;
   int                                   ClearButtonW;
   int                                   ClearButtonH;
+
+  int                                   SaveButtonX;
+  int                                   SaveButtonY;
+  int                                   SaveButtonW;
+  int                                   SaveButtonH;
   
   size = InEvent->size();
   height = size.height();
 
   ClearButtonX = 3;
   ClearButtonY = 2;
-  ClearButtonW = BUTTON_WIDTH;
   ClearButtonH = height - 4;
+  ClearButtonW = BUTTON_WIDTH;
+
+  SaveButtonX = ClearButtonX + ClearButtonW + 5;
+  SaveButtonY = 2;
+  SaveButtonH = height - 4;
+  SaveButtonW = BUTTON_WIDTH;
 
   ClearButton->move(ClearButtonX, ClearButtonY);
   ClearButton->resize(ClearButtonW, ClearButtonH);
+
+  SaveButton->move(SaveButtonX, SaveButtonY);
+  SaveButton->resize(SaveButtonW, SaveButtonH);
 }
 
 /*****************************************************************************!
@@ -152,4 +167,13 @@ void
 MainDisplayWindowControlBar::SlotClearButtonPushed(void)
 {
   emit SignalClearDisplay();
+}
+
+/*****************************************************************************!
+ * Function : SlotSaveButtonPushed
+ *****************************************************************************/
+void
+MainDisplayWindowControlBar::SlotSaveButtonPushed(void)
+{
+  emit SignalSaveData();
 }
