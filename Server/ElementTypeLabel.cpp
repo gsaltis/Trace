@@ -108,9 +108,9 @@ void
 ElementTypeLabel::resizeEvent
 (QResizeEvent* InEvent)
 {
-  QSize					size;  
-  int					width;
-  int					height;
+  QSize                                 size;  
+  int                                   width;
+  int                                   height;
 
   size = InEvent->size();
   width = size.width();
@@ -165,26 +165,35 @@ ElementTypeLabel::paintEvent
   textColor = QColor(LevelColorNames[k]);
   elementHeight = size().height();
 
-  pen.setColor(textColor);
+  //!
   pen.setWidth(2);
-  painter.setPen(pen);
 
-  brush.setColor(textColor);
-  painter.setBrush(brush);
-
+  //!
   x1 = 5;
   x2 = 5;
   y1 = 0;
   y2 = elementHeight;
 
   textHeight = fm.size(0, text).height();
-  
+
+  //!
   for ( i = 0 ; i < indent-1 ; i++ ) {
+    pen.setColor(QColor(LevelColorNames[i]));
+    brush.setColor(QColor(LevelColorNames[i]));
+    painter.setPen(pen);
+    painter.setBrush(brush);
     painter.drawLine(x1, 0, x2, elementHeight);
     x1 += 15;
     x2 += 15;
   }
 
+  //!
+  pen.setColor(textColor);
+  painter.setPen(pen);
+  brush.setColor(textColor);
+  painter.setBrush(brush);
+
+  //!
   if ( text == "ENTER" ) {
     y1 = elementHeight / 2;
     painter.drawLine(x1, y1, x1 + 8, y1);
