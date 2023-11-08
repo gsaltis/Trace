@@ -9,6 +9,7 @@ TARGET					= client.exe
 LIBS					= -lwsock32
 OBJS					= $(sort				\
 					    main.o                              \
+					    trace.o                             \
 					   )
 
 %.o					: %.c

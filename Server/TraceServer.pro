@@ -8,8 +8,8 @@ QMAKE_LINK                      = @echo [LD] $@ && g++
 
 QMAKE_RC                        = @echo [RC] $@ && windres 
 
-#QMAKE_LFLAGS_WINDOWS            += -mwindows
-QMAKE_LFLAGS_WINDOWS            += -Wl,--subsystem,console
+QMAKE_LFLAGS_WINDOWS            += -mwindows
+#QMAKE_LFLAGS_WINDOWS            += -Wl,--subsystem,console
 
 QMAKE_CXXFLAGS                  += 
 
@@ -29,27 +29,29 @@ QT                              += core gui widgets network
 DEFINES                         += \
 
 SOURCES                         += \
+				   ElementTypeLabel.cpp                         \
 				   MainDisplayWindow.cpp                        \
-                                   MainDisplayWindowControlBar.cpp              \
-                                   MainWindow.cpp                               \
+				   MainDisplayWindowControlBar.cpp              \
+				   MainWindow.cpp                               \
 				   Server.cpp                                   \
 				   SystemConfig.cpp                             \
+				   TextDisplayWindow.cpp                        \
+				   TextDisplayWindowDisplayArea.cpp             \
+				   TextDisplayWindowDisplayElement.cpp          \
+				   TextDisplayWindowScrollArea.cpp              \
 				   main.cpp                                     \
-                                   TextDisplayWindow.cpp                        \
-                                   TextDisplayWindowScrollArea.cpp              \
-                                   TextDisplayWindowDisplayArea.cpp             \
-                                   TextDisplayWindowDisplayElement.cpp          \
 
 HEADERS                         += \
+				   ElementTypeLabel.h                           \
 				   MainDisplayWindow.h                          \
-                                   MainDisplayWindowControlBar.h                \
+				   MainDisplayWindowControlBar.h                \
 				   MainWindow.h                                 \
 				   Server.h                                     \
 				   SystemConfig.h                               \
-                                   TextDisplayWindow.h                          \
-                                   TextDisplayWindowScrollArea.h                \
-                                   TextDisplayWindowDisplayArea.h               \
-                                   TextDisplayWindowDisplayElement.h            \
+				   TextDisplayWindow.h                          \
+				   TextDisplayWindowDisplayArea.h               \
+				   TextDisplayWindowDisplayElement.h            \
+				   TextDisplayWindowScrollArea.h                \
 
 FORMS                           += \
 

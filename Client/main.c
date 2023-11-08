@@ -19,6 +19,7 @@
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
+#include "trace_winnet.h"
 
 /*****************************************************************************!
  * Local Macros
@@ -27,20 +28,13 @@
 /*****************************************************************************!
  * Local Data
  *****************************************************************************/
-WSADATA
-MainWinsockData;
 
-int
-SERVER_PORT = 8080;
-
-const char*
-SERVER_ADDRESS = "192.168.100.3";
-
-const char*
-MainMessage = "2:ENTER:main.c:40:n = 3";
-
-int
-MainMessageLen;
+/*****************************************************************************!
+ * Local Functions
+ *****************************************************************************/
+void
+f1
+();
 
 /*****************************************************************************!
  * Function : main
@@ -48,40 +42,29 @@ MainMessageLen;
 int
 main(int argc, char**argv)
 {
-  int                                   serverAddrLen;
-  SOCKET                                sock;
-  int                                   r;
-  sockaddr_in                           serverAddr;
-  int                                   bytesSent;
+  bool                                  b = true;
+  int                                   a = 123;
+  const char*                           s = "String";
   
-  MainMessageLen = strlen(MainMessage);
-  r = WSAStartup(MAKEWORD(2, 2), &MainWinsockData);
-
-  if ( NO_ERROR != r ) {
-    printf("WSAStartup error : %d\n", r);
-    return EXIT_FAILURE;
-  }
-
-  sock = socket(AF_INET, SOCK_DGRAM, 0);
-  if ( INVALID_SOCKET == sock ) {
-    printf("Could not create socket\n");
-    return EXIT_FAILURE;
-  }
-
-
-  serverAddrLen = sizeof(serverAddr);
-  
-  serverAddr.sin_family = AF_INET;
-  serverAddr.sin_addr.s_addr = inet_addr(SERVER_ADDRESS);
-  serverAddr.sin_port = htons(SERVER_PORT);
-
-  bytesSent = sendto(sock,
-                     MainMessage,
-                     MainMessageLen,
-                     0,
-                     (struct sockaddr*)&serverAddr,
-                     serverAddrLen);
-  printf("%d\n", bytesSent);
-  WSACleanup();
+  TRACE_FUNCTION_START();
+  TRACE_FUNCTION_LOCATION();
+  TRACE_FUNCTION_BOOL(b);
+  TRACE_FUNCTION_INT(a);
+  TRACE_FUNCTION_HEX(a);
+  f1();
+  TRACE_FUNCTION_STRING(s);
+  TRACE_FUNCTION_END();
   return EXIT_SUCCESS;
+}
+
+/*****************************************************************************!
+ * Function : f1()
+ *****************************************************************************/
+void
+f1
+()
+{
+  TRACE_FUNCTION_START();
+  TRACE_FUNCTION_LOCATION();
+  TRACE_FUNCTION_END();
 }

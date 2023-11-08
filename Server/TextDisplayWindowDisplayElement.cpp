@@ -33,7 +33,8 @@ TextDisplayWindowDisplayElement::TextDisplayWindowDisplayElement
 {
   QPalette pal;
   pal = palette();
-  pal.setBrush(QPalette::Window, QBrush(QColor(240, 240, 240)));
+  color = QColor(240, 240, 240);
+  pal.setBrush(QPalette::Window, QBrush(color));
   setPalette(pal);
   setAutoFillBackground(true);
 
@@ -85,7 +86,7 @@ TextDisplayWindowDisplayElement::CreateSubWindows()
   DateTimeLabel->setAlignment(Qt::AlignRight);
   DateTimeLabel->setFont(QFont("Segoe UI", 10, QFont::Normal));
 
-  TypeLabel = new QLabel();
+  TypeLabel = new ElementTypeLabel("", 0, color);
   TypeLabel->setParent(this);
   TypeLabel->move(0, 0);
   TypeLabel->resize(0, 0);
@@ -173,9 +174,9 @@ TextDisplayWindowDisplayElement::resizeEvent
   DateTimeLabelH = height  - 2;
 
   TypeLabelX            = DateTimeLabelW + DateTimeLabelX + 5;
-  TypeLabelY            = 1;
+  TypeLabelY            = 0;
   TypeLabelW            = TYPE_LABEL_WIDTH;
-  TypeLabelH            = height - 2;;
+  TypeLabelH            = height;;
 
   FilenameLabelX        = TypeLabelX + TypeLabelW + 5;
   FilenameLabelY        = 1;
@@ -271,8 +272,7 @@ TextDisplayWindowDisplayElement::ParseText
     value = text.sliced(start, m);
   }
 
-  st.fill(QChar(' '), indentLength);
-  TypeLabel->setText(st + type);
+  TypeLabel->AddText(type, indentLength);
   FilenameLabel->setText(fileName);
   LineNumberLabel->setText(QString("%1").arg(lineNumber));
   ValueLabel->setText(value);

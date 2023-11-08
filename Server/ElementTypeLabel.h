@@ -1,57 +1,58 @@
 /*****************************************************************************
- * FILE NAME    : TextDisplayWindowDisplayElement.h
- * DATE         : November 06 2023
+ * FILE NAME    : ElementTypeLabel.h
+ * DATE         : November 07 2023
  * PROJECT      : 
- * COPYRIGHT    : Copyright (C) 2023 by Vertiv Company
+ * COPYRIGHT    : Copyright (C) 2023 by Gregory R Saltis
  *****************************************************************************/
-#ifndef _textdisplaywindowdisplayelement_h_
-#define _textdisplaywindowdisplayelement_h_
+#ifndef _elementtypelabel_h_
+#define _elementtypelabel_h_
 
 /*****************************************************************************!
  * Global Headers
  *****************************************************************************/
 #include <QtCore>
 #include <QtGui>
-#include <QWidget>
 #include <QLabel>
+#include <QWidget>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "ElementTypeLabel.h"
 
 /*****************************************************************************!
  * Exported Macros
  *****************************************************************************/
-#define TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_X 200
-#define TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_Y 200
-#define TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_WIDTH 200
-#define TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_HEIGHT 20
+#define ELEMENT_TYPE_LABEL_X            200
+#define ELEMENT_TYPE_LABEL_Y            200
+#define ELEMENT_TYPE_LABEL_WIDTH        200
+#define ELEMENT_TYPE_LABEL_HEIGHT       200
 
 /*****************************************************************************!
- * Exported Class : TextDisplayWindowDisplayElement
+ * Exported Class : ElementTypeLabel
  *****************************************************************************/
-class TextDisplayWindowDisplayElement : public QWidget
+class ElementTypeLabel : public QLabel
 {
   Q_OBJECT;
 
  //! Constructors
  public :
-  TextDisplayWindowDisplayElement (QString InString, QDateTime InDateTime, QWidget* InParent);
+  ElementTypeLabel              (QString InText, int InIndent, QColor InColor);
 
  //! Destructor
  public :
-  ~TextDisplayWindowDisplayElement ();
+  ~ElementTypeLabel             ();
 
  //! Public Methods
  public :
-
+  void                          AddText                 (QString InText, int InIndent);
+  
  //! Public Data
  public :
 
  //! Protected Methods
  protected :
-
+  void                          paintEvent              (QPaintEvent* InEvent);
+  
  //! Protected Data
  protected :
 
@@ -61,25 +62,12 @@ class TextDisplayWindowDisplayElement : public QWidget
   void                          CreateSubWindows        ();
   void                          InitializeSubWindows    ();
   void                          resizeEvent             (QResizeEvent* InEvent);
-  void                          ParseText               (QString InString);
 
  //! Private Data
  private :
   QString                       text;
-  QDateTime                     dateTime;
+  int                           indent;
   QColor                        color;
-  QLabel*                       TextLabel;
-  QLabel*                       DateTimeLabel;
-  ElementTypeLabel*             TypeLabel;
-  QLabel*                       FilenameLabel;
-  QLabel*                       LineNumberLabel;
-  QLabel*                       ValueLabel;
-
-  int                           indentLength;
-  int                           lineNumber;
-  QString                       type;
-  QString                       fileName;
-  QString                       value;
   
  //! Public Slots
  public slots :
@@ -92,4 +80,4 @@ class TextDisplayWindowDisplayElement : public QWidget
 
 };
 
-#endif /* _textdisplaywindowdisplayelement_h_*/
+#endif /* _elementtypelabel_h_*/
