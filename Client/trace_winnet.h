@@ -41,6 +41,13 @@ extern char
 TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
 
 /*****************************************************************************!
+ * Exported Functions
+ *****************************************************************************/
+void
+TraceSocketClose
+(int InSocket);
+
+/*****************************************************************************!
  * Exported Macros
  *****************************************************************************/
 #define TRACE_FUNCTION_INIT()                                                                       \
@@ -60,7 +67,7 @@ TraceOutputBuffer[TRACE_OUTPUT_BUFFER_SIZE +1];
            sizeof(servaddr));                                                                       \
 
 #define TRACE_FUNCTION_FINISH()                                                                     \
-    close(sockfd);                                                                                  \
+    TraceSocketClose(sockfd);                                                                       \
     WSACleanup();                                                                                   \
   
 #define TRACE_FUNCTION_START()                                                                      \
