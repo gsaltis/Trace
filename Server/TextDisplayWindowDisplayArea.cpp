@@ -11,6 +11,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QWidget>
+#include <QMessageBox>
 
 /*****************************************************************************!
  * Local Headers
@@ -30,6 +31,7 @@ TextDisplayWindowDisplayArea::TextDisplayWindowDisplayArea
   setPalette(pal);
   setAutoFillBackground(true);
   initialize();
+  windowWidth = 8000;
 }
 
 /*****************************************************************************!
@@ -68,6 +70,7 @@ TextDisplayWindowDisplayArea::InitializeSubWindows()
   
 }
 
+#if 0
 /*****************************************************************************!
  * Function : resizeEvent
  *****************************************************************************/
@@ -82,16 +85,16 @@ TextDisplayWindowDisplayArea::resizeEvent
   TextDisplayWindowDisplayElement*      element;
   
   size = InEvent->size();
-  width = size.width();
+  width = windowWidth;
 
   n = elements.size();
   for ( i = 0 ; i < n ; i++ ) {
     element = elements[i];
     element->resize(width, element->size().height());
   }
-
 }
 
+#endif
 /*****************************************************************************!
  * Function : SlotAddText
  *****************************************************************************/
@@ -121,22 +124,19 @@ TextDisplayWindowDisplayArea::AddElement
 (TextDisplayWindowDisplayElement* InElement)
 {
   int                                   height;
-  int                                   width;
   int                                   y;
   
   if ( NULL == InElement ) {
     return;
   }
-  width = size().width();
-  
   y = GetNextY();
   InElement->move(0, y);
-  InElement->resize(width, TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_HEIGHT);
+  InElement->resize(windowWidth, TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_HEIGHT);
 
   elements << InElement;
 
   height = y + TEXT_DISPLAY_WINDOW_DISPLAY_ELEMENT_HEIGHT;
-  resize(width, height);
+  resize(windowWidth, height);
 }
 
 /*****************************************************************************!
@@ -177,4 +177,39 @@ TextDisplayWindowDisplayArea::SlotClearDisplay(void)
     delete w;
   
   elements.clear();
+}
+
+/*****************************************************************************!
+ * Function : SlotSaveData
+ *****************************************************************************/
+void
+TextDisplayWindowDisplayArea::SlotSaveData(void)
+{
+  bool                                  haveItem;
+  QString                               filename = "Trace.json";
+  QFile                                 file(filename);
+  QString                               st = "[\n";
+
+  if ( !file.open(QIODevice::ReadWrite | QIODevice::Truncate) ) {
+    QMessageBox mb = QMessageBox(QMessageBox::Warning, "Could not open file", QString("Could not open \"%1\"").arg(filename));
+    mb.exec();
+    return;
+  }
+
+  file.write(st.toLatin1());
+  haveItem = false;
+  for ( auto element : elements ) {
+    if ( haveItem ) {
+      st = ",\n";
+      file.write(st.toLatin1());
+    }
+    element->Save(&file);
+    haveItem = true;
+  }
+
+  st = "\n]\n";
+  file.write(st.toLatin1());
+  file.close();
+  QMessageBox mb = QMessageBox(QMessageBox::Information, QString("File Saved"), QString("\"%1\" saved\n").arg(filename));
+  mb.exec();
 }

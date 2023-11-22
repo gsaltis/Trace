@@ -107,6 +107,8 @@ TextDisplayWindowScrollArea::CreateConnections(void)
 {
   connect(this,         SIGNAL(SignalClearDisplay()),
           displayArea,  SLOT(SlotClearDisplay()));
+  connect(this,         SIGNAL(SignalSaveData()),
+          displayArea,  SLOT(SlotSaveData()));
 }
 
 /*****************************************************************************!
@@ -116,4 +118,13 @@ void
 TextDisplayWindowScrollArea::SlotClearDisplay(void)
 {
   emit SignalClearDisplay();
+}
+
+/*****************************************************************************!
+ * Function : SlotSaveData
+ *****************************************************************************/
+void
+TextDisplayWindowScrollArea::SlotSaveData(void)
+{
+  emit SignalSaveData();
 }

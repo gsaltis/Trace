@@ -72,11 +72,13 @@ class MainDisplayWindow : public QWidget
  public slots :
   void                          SlotTextReceived        (QString InString);
   void                          SlotClearDisplay        (void);
+  void                          SlotSaveData            (void);
 
  //! Public Signals
  signals :
   void                          SignalTextReceived      (QString InString);
   void                          SignalClearDisplay      ();
+  void                          SignalSaveData          (void);
   
  //! Public Actions
  public :

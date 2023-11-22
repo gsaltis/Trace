@@ -68,6 +68,7 @@ TextDisplayWindowDisplayElement::initialize()
 void
 TextDisplayWindowDisplayElement::CreateSubWindows()
 {
+  QPalette                              pal;
 
   //! Create label  
   TextLabel = new QLabel();
@@ -102,6 +103,11 @@ TextDisplayWindowDisplayElement::CreateSubWindows()
   FileNameLabel->setText("");
   FileNameLabel->setAlignment(Qt::AlignRight);
   FileNameLabel->setFont(QFont("Segoe UI", 10, QFont::Normal));
+  
+  pal = FileNameLabel->palette();
+  pal.setBrush(QPalette::WindowText, TypeLabel->GetTextColor());
+  FileNameLabel->setPalette(pal);
+  FileNameLabel->setAutoFillBackground(true);
   
   FunctionNameLabel = new QLabel();
   FunctionNameLabel->setParent(this);
@@ -309,4 +315,27 @@ TextDisplayWindowDisplayElement::ParseText
   FunctionNameLabel->setText(functionName);
   LineNumberLabel->setText(QString("%1").arg(lineNumber));
   ValueLabel->setText(value);
+}
+
+/*****************************************************************************!
+ * Function : Save
+ *****************************************************************************/
+void
+TextDisplayWindowDisplayElement::Save
+(QFile* InFile)
+{
+  QString                               message;
+  QString                               v;
+  
+  v = value.replace("\"", "\\\"");
+  v = v.trimmed();
+  message = QString("  {\n"
+                    "    \"type\" : \"%1\",\n"
+                    "    \"filename\" : \"%2\",\n"
+                    "    \"functionname\" : \"%3\",\n"
+                    "    \"linenumber\" : %4,\n"
+                    "    \"value\" : \"%5\"\n"
+                    "  }")
+    .arg(type).arg(fileName).arg(functionName).arg(lineNumber).arg(v);
+  InFile->write(message.toLatin1());
 }

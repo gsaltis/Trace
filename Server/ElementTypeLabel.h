@@ -45,6 +45,7 @@ class ElementTypeLabel : public QLabel
  //! Public Methods
  public :
   void                          AddText                 (QString InText, int InIndent);
+  QColor                        GetTextColor            ();
   
  //! Public Data
  public :
@@ -68,6 +69,7 @@ class ElementTypeLabel : public QLabel
   QString                       text;
   int                           indent;
   QColor                        color;
+  QColor                        textColor;
   
  //! Public Slots
  public slots :

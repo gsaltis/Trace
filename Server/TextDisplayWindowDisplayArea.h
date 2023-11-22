@@ -55,7 +55,6 @@ class TextDisplayWindowDisplayArea : public QWidget
   void                          initialize              ();
   void                          CreateSubWindows        ();
   void                          InitializeSubWindows    ();
-  void                          resizeEvent             (QResizeEvent* InEvent);
   void                          AddElement              (TextDisplayWindowDisplayElement* InElement);
   int                           GetNextY                (void);
 
@@ -63,10 +62,13 @@ class TextDisplayWindowDisplayArea : public QWidget
  private :
   QList<TextDisplayWindowDisplayElement*>       elements;
   
+  int                           windowWidth;
+
  //! Public Slots
  public slots :
   void                          SlotAddText             (QString InString);
   void                          SlotClearDisplay        (void);
+  void                          SlotSaveData            (void);
 
  //! Public Signals
  signals :

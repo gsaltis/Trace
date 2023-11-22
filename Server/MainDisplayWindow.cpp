@@ -136,6 +136,10 @@ MainDisplayWindow::CreateConnections(void)
           this,       SLOT(SlotClearDisplay()));
   connect(this,       SIGNAL(SignalClearDisplay()),
           textWindow, SLOT(SlotClearDisplay()));
+  connect(controlBar, SIGNAL(SignalSaveData()),
+          this,       SLOT(SlotSaveData()));
+  connect(this,       SIGNAL(SignalSaveData()),
+          textWindow, SLOT(SlotSaveData()));
 }
 
 /*****************************************************************************!
@@ -155,4 +159,13 @@ void
 MainDisplayWindow::SlotClearDisplay(void)
 {
   emit SignalClearDisplay();
+}
+
+/*****************************************************************************!
+ * Function : SlotSaveData
+ *****************************************************************************/
+void
+MainDisplayWindow::SlotSaveData(void)
+{
+  emit SignalSaveData();
 }

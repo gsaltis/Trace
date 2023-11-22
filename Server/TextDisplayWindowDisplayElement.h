@@ -46,6 +46,7 @@ class TextDisplayWindowDisplayElement : public QWidget
 
  //! Public Methods
  public :
+  void                          Save                    (QFile* InFile);
 
  //! Public Data
  public :

@@ -103,6 +103,8 @@ TextDisplayWindow::CreateConnections(void)
           SLOT(SlotTextReceived(QString)));
   connect(this,         SIGNAL(SignalClearDisplay()),
           scrollArea,   SLOT(SlotClearDisplay()));
+  connect(this,         SIGNAL(SignalSaveData()),
+          scrollArea,   SLOT(SlotSaveData()));
 }
 
 /*****************************************************************************!
@@ -122,4 +124,13 @@ void
 TextDisplayWindow::SlotClearDisplay(void)
 {
   emit SignalClearDisplay();
+}
+
+/*****************************************************************************!
+ * Function : SlotSaveData
+ *****************************************************************************/
+void
+TextDisplayWindow::SlotSaveData(void)
+{
+  emit SignalSaveData();
 }

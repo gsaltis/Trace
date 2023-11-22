@@ -71,11 +71,13 @@ class TextDisplayWindowScrollArea : public QScrollArea
  public slots :
   void                          SlotTextReceived        (QString InText);
   void                          SlotClearDisplay        (void);
+  void                          SlotSaveData            (void);
 
  //! Public Signals
  signals :
   void                          SignalTextReceived      (QString InText);
   void                          SignalClearDisplay      (void);
+  void                          SignalSaveData          (void);
 
  //! Public Actions
  public :

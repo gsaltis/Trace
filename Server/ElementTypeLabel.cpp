@@ -53,9 +53,19 @@ QString LevelColorNames[] = {
 ElementTypeLabel::ElementTypeLabel
 (QString InText, int InIndent, QColor InColor) : QLabel()
 {
+  int                                   k;
+  int                                   j;
+  
   text = InText;
   indent = InIndent;
   color = InColor;
+
+  k = indent;
+  j = sizeof(LevelColorNames) / sizeof(LevelColorNames[0]);
+  if ( k >= j ) {
+    k = j - 1;
+  }
+  textColor = QColor(LevelColorNames[k]);
   
   QPalette pal;
   pal = palette();
@@ -146,23 +156,15 @@ ElementTypeLabel::paintEvent
 {
   QPainter                              painter(this);
   QFont                                 f = font();
-  QColor                                textColor = QColor(0, 0, 0);
   QPen                                  pen;
   QBrush                                brush;
   int                                   x1, x2, y1, y2;
-  int                                   j, k;
   int                                   i;
   QFontMetrics                          fm(f);
   int                                   m;
   int                                   textHeight;
   int                                   elementHeight;
 
-  k = indent;
-  j = sizeof(LevelColorNames) / sizeof(LevelColorNames[0]);
-  if ( k >= j ) {
-    k = j - 1;
-  }
-  textColor = QColor(LevelColorNames[k]);
   elementHeight = size().height();
 
   //!
@@ -208,4 +210,14 @@ ElementTypeLabel::paintEvent
   f.setWeight(QFont::Bold);
   painter.setFont(f);
   painter.drawText(QPoint(x1, elementHeight - (m + textHeight / 4)), text);
+}
+
+/*****************************************************************************!
+ * Function : GetTextColor
+ *****************************************************************************/
+QColor
+ElementTypeLabel::GetTextColor
+()
+{
+  return textColor;
 }
