@@ -2,5 +2,6 @@
 <qresource>
     <file>Images/Delete.png</file>
     <file>Images/SaveData.png</file>
+    <file>Images/Server.png</file>
 </qresource>
 </RCC>

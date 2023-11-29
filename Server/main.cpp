@@ -50,6 +50,7 @@ main
   application.setOrganizationDomain("www.vertivco.com");
   
   w = new MainWindow(MAIN_PORT);
+  w->setWindowIcon(QIcon(QPixmap(":/Images/Server.png")));
   w->resize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
   w->move(MAIN_WINDOW_X, MAIN_WINDOW_Y);
   w->show();
