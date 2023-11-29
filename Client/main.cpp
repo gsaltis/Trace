@@ -90,7 +90,8 @@ f2
   TRACE_FUNCTION_START();
   TRACE_FUNCTION_LOCATION();
   TRACE_FUNCTION_INT(n);
-  if ( k < 3 ) {
+  if ( k < 5 ) {
+    TRACE_FUNCTION_INT(k);
     k++;
     f2();
   }

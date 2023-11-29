@@ -1,0 +1,6 @@
+MainDisplayWindow
+  TextDisplayWindow
+    TextDisplayWindowScrollArea
+      TextDisplayWindowDisplayArea
+        TextDisplayWindowDisplayElement[]
+  MainDisplayWindowControlBar

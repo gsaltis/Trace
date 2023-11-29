@@ -21,7 +21,7 @@
  * Local Macros
  *****************************************************************************/
 #define DATE_TIME_WIDTH                 150
-#define TYPE_LABEL_WIDTH                140
+#define TYPE_LABEL_WIDTH                200
 #define LINENUMBER_LABEL_WIDTH          40
 #define FILENAME_LABEL_WIDTH            300
 #define FUNCTIONNAME_LABEL_WIDTH        300

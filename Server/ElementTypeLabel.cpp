@@ -19,10 +19,17 @@
 
 QString LevelColorNames[] = {
   QString("#b71c1c"),
-  QString("#800000"),
-  QString("#008000"),
-  QString("#000080"),
-  QString("#b71c1c"),
+  QString("#CC0000"),
+  QString("#004400"),
+  QString("#0000AA"),
+  QString("#880088"),
+  QString("#008888"),
+  QString("#884400"),
+  QString("#884422"),
+  QString("#8000C0"),
+  QString("#008800"),
+  QString("#008888"),
+  QString("#FF1c1c"),
   QString("#b71c1c"),
   QString("#4A148C"),
   QString("#1A237E"),
@@ -164,11 +171,12 @@ ElementTypeLabel::paintEvent
   int                                   m;
   int                                   textHeight;
   int                                   elementHeight;
-
+  QString                               s;
+  
   elementHeight = size().height();
 
   //!
-  pen.setWidth(2);
+  pen.setWidth(4);
 
   //!
   x1 = 5;
@@ -179,7 +187,7 @@ ElementTypeLabel::paintEvent
   textHeight = fm.size(0, text).height();
 
   //!
-  for ( i = 0 ; i < indent-1 ; i++ ) {
+  for ( i = 1 ; i <= indent-1 ; i++ ) {
     pen.setColor(QColor(LevelColorNames[i]));
     brush.setColor(QColor(LevelColorNames[i]));
     painter.setPen(pen);
@@ -190,6 +198,7 @@ ElementTypeLabel::paintEvent
   }
 
   //!
+  textColor = LevelColorNames[indent];
   pen.setColor(textColor);
   painter.setPen(pen);
   brush.setColor(textColor);
@@ -209,7 +218,9 @@ ElementTypeLabel::paintEvent
 
   f.setWeight(QFont::Bold);
   painter.setFont(f);
-  painter.drawText(QPoint(x1, elementHeight - (m + textHeight / 4)), text);
+  s = QString("%1 : %2").arg(text).arg(indent);
+              
+  painter.drawText(QPoint(x1, elementHeight - (m + textHeight / 4)), s);
 }
 
 /*****************************************************************************!

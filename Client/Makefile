@@ -12,8 +12,8 @@ OBJS					= $(sort				\
 					    trace.o                             \
 					   )
 
-%.o					: %.c
-					  @echo [CC] $@
+%.o					: %.cpp
+					  @echo [C+] $@
 					  @$(CC) $(CC_FLAGS) $<
 
 

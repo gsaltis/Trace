@@ -1,2 +1,2 @@
-main.o: main.c trace_winnet.h
-trace.o: trace.c trace.h trace_none.h
+main.o: main.cpp trace_winnet.h
+trace.o: trace.cpp trace.h trace_none.h
