@@ -218,7 +218,7 @@ ElementTypeLabel::paintEvent
 
   f.setWeight(QFont::Bold);
   painter.setFont(f);
-  s = QString("%1 : %2").arg(text).arg(indent);
+  s = QString("%1").arg(text);
               
   painter.drawText(QPoint(x1, elementHeight - (m + textHeight / 4)), s);
 }

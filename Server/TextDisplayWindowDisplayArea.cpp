@@ -175,8 +175,8 @@ TextDisplayWindowDisplayArea::SlotClearDisplay(void)
 {
   while ( QWidget* w = findChild<QWidget*>() )
     delete w;
-  
   elements.clear();
+  resize(size().width(), 10);
 }
 
 /*****************************************************************************!

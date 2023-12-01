@@ -149,6 +149,10 @@ void
 MainDisplayWindow::SlotTextReceived
 (QString InString)
 {
+  if ( InString == "99:CLEAR \n" ) {
+    emit SignalClearDisplay();
+    return;
+  }
   emit SignalTextReceived(InString);
 }
 

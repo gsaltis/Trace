@@ -141,6 +141,15 @@ TraceSocketClose
     TRACE_FUNCTION_FINISH()                                                                         \
   }                                                                                                 \
 
+//!
+#define TRACE_COMMAND_CLEAR()                                                                       \
+  {                                                                                                 \
+    TRACE_FUNCTION_INIT()                                                                           \
+    sprintf(TraceOutputBuffer, "99:CLEAR \n");                                                      \
+    TRACE_FUNCTION_SEND()                                                                           \
+    TRACE_FUNCTION_FINISH()                                                                         \
+  }                                                                                                 \
+
 /*****************************************************************************!
  * Exported Data
  *****************************************************************************/

@@ -5,3 +5,5 @@ Server/debug
 *.exe
 *~
 Server/.qmake*
+*.a
+
